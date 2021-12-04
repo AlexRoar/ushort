@@ -46,8 +46,6 @@ LinkAlias.init({
     ]
 });
 
-sequelize.sync({force: true})
-
 router.get('/', (req: any, res: any, next: any) => {
     res.render('index');
 });
