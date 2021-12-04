@@ -1,29 +1,40 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <h1>Simple url shortener</h1>
-    <form>
-        <input id="longUrl" type="url" name="longUrl">
-        <button id="requestBtn">
-            Shorten
-        </button>
-    </form>
-    <section id="result">
+    <section class="u-clearfix u-grey-80 u-section-2" id="carousel_4a33">
+        <div class="u-align-center u-container-style u-expanded-width u-group u-shape-rectangle u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+                <img height="100px" src="output-onlinegiftools-2.gif">
+                <h2 class="u-text u-text-1">Simple url shortener</h2>
+                <div class="u-text u-text-2">
+                <form style="margin-top: 20px;margin-bottom: 20px">
+                    <input style="color: gray;" width="320px" id="longUrl" type="url" name="longUrl">
+                    <button style="color: gray; margin-left: 20px" id="requestBtn">
+                        Shorten
+                    </button>
+                </form>
+                <section style="margin-top: 20px" id="result">
+                </section>
+                <template>
+                    <pre>{link}</pre>
+                </template>
+                <script>
+                    const base_url = window.location.origin;
+                    $('#requestBtn').on("click", function (e) {
+                        e.preventDefault();
+                        $.post("/n/", {longUrl: $('#longUrl').val()}).done(function (data) {
+                            let template = $('template').html()
+                            template = template.replace('{link}', base_url + '/' + data.shortUrl)
+                            $('#result').html(template)
+                        }).fail(function (data) {
+                            $('#result').html("Invalid link")
+                        });
+                    })
+                </script>
+                </p>
+                <div class="u-expanded-height-md u-expanded-height-sm u-expanded-height-xs u-palette-3-base u-shape u-shape-rectangle u-shape-1"></div>
+                <div class="u-expanded-height-md u-expanded-height-sm u-expanded-height-xs u-palette-3-base u-shape u-shape-rectangle u-shape-2"></div>
+            </div>
+        </div>
     </section>
-    <template>
-        <pre>{link}</pre>
-    </template>
-    <script>
-        const base_url = window.location.origin;
-        $('#requestBtn').on("click", function (e) {
-            e.preventDefault();
-            $.post("/n/", {longUrl: $('#longUrl').val()}).done(function (data) {
-                let template = $('template').html()
-                template = template.replace('{link}', base_url + '/' + data.shortUrl)
-                $('#result').html(template)
-            }).fail(function (data) {
-                $('#result').html("Invalid link")
-            });
-        })
-    </script>
 {% endblock %}
