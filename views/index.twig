@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>Simple url shortener</h1>
+    <form>
+        <input id="longUrl" type="url" name="longUrl">
+        <button id="requestBtn">
+            Shorten
+        </button>
+    </form>
+    <section id="result">
+    </section>
+    <template>
+        <pre>{link}</pre>
+    </template>
+    <script>
+        const base_url = window.location.origin;
+        $('#requestBtn').on("click", function (e) {
+            e.preventDefault();
+            $.post("/n/", {longUrl: $('#longUrl').val()}).done(function (data) {
+                let template = $('template').html()
+                template = template.replace('{link}', base_url + '/' + data.shortUrl)
+                $('#result').html(template)
+            }).fail(function (data) {
+                $('#result').html("Error occurred")
+            });
+        })
+    </script>
+{% endblock %}
