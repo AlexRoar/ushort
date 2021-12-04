@@ -22,7 +22,7 @@
                 template = template.replace('{link}', base_url + '/' + data.shortUrl)
                 $('#result').html(template)
             }).fail(function (data) {
-                $('#result').html("Error occurred")
+                $('#result').html("Invalid link")
             });
         })
     </script>

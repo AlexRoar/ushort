@@ -1,5 +1,5 @@
 import {Model, DataTypes, Sequelize} from "sequelize";
-import {publicIdDecode, publicIdEncode} from "./publicIDEncoder";
+import {publicIdDecode, publicIdEncode, UUIDPrefixLen} from "./publicIDEncoder";
 
 const validUrl = require('valid-url')
 
@@ -69,6 +69,10 @@ router.get('/:link', async (req: any, res: any, next: () => any) => {
     })
 
     if (row === null || row === undefined) {
+        return next();
+    }
+
+    if(row.uuid.substring(0, UUIDPrefixLen) !== decoded.uuid) {
         return next();
     }
 
