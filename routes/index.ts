@@ -3,7 +3,6 @@ import {publicIdDecode, publicIdEncode, UUIDPrefixLen} from "./publicIDEncoder";
 import {init, LinkAlias} from "./db/structure";
 
 const validUrl = require('valid-url')
-
 const express = require('express');
 const router = express.Router();
 
