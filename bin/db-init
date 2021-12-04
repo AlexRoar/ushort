@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+const seq = require("sequelize");
+const init = require("../build/routes/db/structure");
+
+const sequelize = new seq.Sequelize({
+  dialect: 'sqlite',
+  storage: '/usr/src/db/urls.db'
+});
+
+init.init(sequelize)
+
+sequelize.sync({force: true})

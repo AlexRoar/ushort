@@ -1,5 +1,6 @@
 import {Model, DataTypes, Sequelize} from "sequelize";
 import {publicIdDecode, publicIdEncode, UUIDPrefixLen} from "./publicIDEncoder";
+import {init, LinkAlias} from "./db/structure";
 
 const validUrl = require('valid-url')
 
@@ -8,43 +9,12 @@ const router = express.Router();
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: 'urls.db'
+    storage: '/usr/src/db/urls.db'
 });
 
-class LinkAlias extends Model {
-    initial!: string;
-    uuid!: string;
-    index!: number;
-}
+init(sequelize)
 
-LinkAlias.init({
-    initial: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        unique: true,
-    },
-    uuid: {
-        type: DataTypes.UUIDV4,
-        allowNull: false,
-        unique: true,
-        defaultValue: DataTypes.UUIDV4
-    },
-    index: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    }
-}, {
-    sequelize,
-    modelName: 'LinkAlias',
-    indexes: [
-        {
-            name: "initial",
-            fields: ["initial", "uuid", "initial"],
-            unique: true
-        }
-    ]
-});
+// sequelize.sync({force: true})
 
 router.get('/', (req: any, res: any, next: any) => {
     res.render('index');
