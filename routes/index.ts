@@ -80,9 +80,12 @@ router.get('/:link', async (req: any, res: any, next: () => any) => {
 });
 
 router.post('/n/', async (req: any, res: any, next: () => any) => {
-    const {
+    let {
         longUrl
     } = req.body
+    if(!validUrl.isUri(longUrl)){
+        longUrl = "https://" + longUrl
+    }
     if (!validUrl.isUri(longUrl)) {
         console.log(req.body)
         return res.status(400).render('info', {data: 'Invalid URL'});
