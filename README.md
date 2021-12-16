@@ -10,7 +10,7 @@ Extremely simple url shortener
 	- Быстро написал urlshortener на express с sqlite3
 	- Подготовить `Dockerfile` и `.dockerignore`
 		-
-		  ```
+		  ```yaml
 		  FROM node:14
 		  WORKDIR /usr/src/app
 		  COPY . .
@@ -29,7 +29,7 @@ Extremely simple url shortener
 		- Запуск приложения
 	- Подготавливаю файл docker-compose
 		-
-		  ```
+		  ```yaml
 		  version: "3.3"
 		  services:
 		    web:
@@ -51,7 +51,7 @@ Extremely simple url shortener
 	- Записал эту команду в cron для `@reboot` — запускаться будет сразу после перезапуска droplet
 	- Настроил action на GitHub — при push в main обновляются фалы с гита, перезапускается контейнер
 		-
-		  ``` yaml
+		  ```yaml
 		  name: DigitalOcean deploy
 		  			  
 		  # Controls when the workflow will run
@@ -87,4 +87,3 @@ Extremely simple url shortener
 		              docker-compose -f docker-compose.yml down
 		              docker-compose -f docker-compose.yml up -d
 		  ```
--
