@@ -26,7 +26,11 @@
                             template = template.replace('{link}', base_url + '/' + data.shortUrl)
                             $('#result').html(template)
                         }).fail(function (data) {
-                            $('#result').html("Invalid link")
+                            if(data.status === 429){
+                                $('#result').html("Rate exceeded")
+                            } else {
+                                $('#result').html("Invalid link")
+                            }
                         });
                     })
                 </script>

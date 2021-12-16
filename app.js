@@ -3,7 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const rateLimit = require("express-rate-limit");
 
+// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB or API Gateway, Nginx, etc)
+// see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
+
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 15 minutes
+  max: 8 // limit each IP to 100 requests per windowMs
+});
 var indexRouter = require('./build/routes');
 var app = express();
 
@@ -17,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(limiter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
