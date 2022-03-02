@@ -13,15 +13,13 @@ const sequelize = new Sequelize({
 
 init(sequelize)
 
-sequelize.sync()
-
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 15 minutes
     max: 8, // limit each IP to 100 requests per windowMs
 });
 
-// sequelize.sync({force: true})
+sequelize.sync({force: true})
 
 router.get('/', (req: any, res: any, next: any) => {
     res.render('index');
