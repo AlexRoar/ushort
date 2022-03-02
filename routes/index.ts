@@ -19,7 +19,8 @@ const limiter = rateLimit({
     max: 8, // limit each IP to 100 requests per windowMs
 });
 
-sequelize.sync({force: true})
+// sequelize.sync({force: true})
+sequelize.sync()
 
 router.get('/', (req: any, res: any, next: any) => {
     res.render('index');
