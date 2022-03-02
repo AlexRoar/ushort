@@ -13,6 +13,8 @@ const sequelize = new Sequelize({
 
 init(sequelize)
 
+sequelize.sync()
+
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 15 minutes
